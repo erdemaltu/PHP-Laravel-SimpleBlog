@@ -4,7 +4,8 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">@yield('title')
-            <span class="float-right">{{$articles->count()}} makele bulundu.</span>
+            <span class="float-right">{{$articles->count()}} makele bulundu.</strong>
+            <a href="{{route('admin.trashed.article')}}" class="btn btn-warning btn-sm"><i class="fa fa-frash"></i>Silinen Makaleler</a>
         </h6>
     </div>
     <div class="card-body">
@@ -36,9 +37,9 @@
                             @endif data-toggle="toggle">
                         </td>
                         <td>
-                            <a href="#" title="Görüntüle" class="btn btn-sn btn-success"><i class="fa fa-eye"></i></a>
+                            <a target="_blank" href="{{route('single',[$article->getCategory->slug,$article->slug])}}" title="Görüntüle" class="btn btn-sn btn-success"><i class="fa fa-eye"></i></a>
                             <a href="{{route('admin.makaleler.edit',$article->id)}}" title="Düzenle" class="btn btn-sn btn-primary"><i class="fa fa-pen"></i></a>
-                            <a href="#" title="Sil" class="btn btn-sn btn-danger"><i class="fa fa-times"></i></a>
+                            <a href="{{route('admin.delete.article',$article->id)}}" title="Sil" class="btn btn-sn btn-danger"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                     @endforeach

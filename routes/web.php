@@ -13,8 +13,12 @@ Route::prefix('admin')->name('admin.')->middleware('isLogin')->group(function(){
 });
 Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
   Route::get('panel','App\Http\Controllers\Back\Dashboard@index')->name('dashboard');
+  Route::get('makaleler/silinenler','App\Http\Controllers\Back\ArticleController@trashed')->name('trashed.article');
   Route::resource('makaleler','App\Http\Controllers\Back\ArticleController');
   Route::get('/switch','App\Http\Controllers\Back\ArticleController@switch')->name('switch');
+  Route::get('/deletearticle/{id}','App\Http\Controllers\Back\ArticleController@delete')->name('delete.article');
+  Route::get('/harddeletearticle/{id}','App\Http\Controllers\Back\ArticleController@hardDelete')->name('hard.delete.article');
+  Route::get('/recoverarticle/{id}','App\Http\Controllers\Back\ArticleController@recover')->name('recover.article');
   Route::get('çıkış','App\Http\Controllers\Back\AuthController@logout')->name('logout');
 });
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 class ArticleController extends Controller
 {
     /**
@@ -123,6 +124,29 @@ class ArticleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function delete($id){
+      Article::find($id)->delete();
+      toastr()->success('Makele, silinen makalelere eklendi');
+      return redirect()->route('admin.makaleler.index');
+    }
+    public function trashed(){
+      $articles=Article::onlyTrashed()->orderBy('deleted_at','desc')->get();
+      return view('back.articles.trashed',compact('articles'));
+    }
+    public function recover($id){
+      Article::onlyTrashed()->find($id)->restore();
+      toastr()->success('Makele başarıyla geri dönüştürüldü');
+      return redirect()->back();
+    }
+    public function hardDelete($id){
+      $article=Article::onlyTrashed()->find($id);
+      if(File::exists($article->image)){
+        File::delete(public_path($article->image));
+      }
+      $article->forceDelete();
+      toastr()->success('Makele başarıyla silindi');
+      return redirect()->route('admin.makaleler.index');
+    }
     public function destroy($id)
     {
         //
