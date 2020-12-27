@@ -27,6 +27,10 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
   Route::post('/kategoriler/delete','App\Http\Controllers\Back\CategoryController@delete')->name('category.delete');
   Route::get('/kategori/status','App\Http\Controllers\Back\CategoryController@switch')->name('category.switch');
   Route::get('/kategori/getData','App\Http\Controllers\Back\CategoryController@getData')->name('category.getData');
+  //PAGE'S ROUTE
+  Route::get('/sayfalar','App\Http\Controllers\Back\PageController@index')->name('page.index');
+  Route::get('/sayfa/switch','App\Http\Controllers\Back\PageController@switch')->name('page.switch');
+
   //
   Route::get('çıkış','App\Http\Controllers\Back\AuthController@logout')->name('logout');
 });
