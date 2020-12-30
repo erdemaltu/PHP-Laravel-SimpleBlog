@@ -35,7 +35,7 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
   Route::post('/sayfalar/olustur','App\Http\Controllers\Back\PageController@post')->name('page.create.post');
   Route::get('/sayfa/switch','App\Http\Controllers\Back\PageController@switch')->name('page.switch');
   Route::get('/sayfa/sil/{id}','App\Http\Controllers\Back\PageController@delete')->name('page.delete');
-
+  Route::get('/sayfa/siralama','App\Http\Controllers\Back\PageController@orders')->name('page.orders');
   //
   Route::get('çıkış','App\Http\Controllers\Back\AuthController@logout')->name('logout');
 });
