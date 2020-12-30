@@ -29,7 +29,12 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
   Route::get('/kategori/getData','App\Http\Controllers\Back\CategoryController@getData')->name('category.getData');
   //PAGE'S ROUTE
   Route::get('/sayfalar','App\Http\Controllers\Back\PageController@index')->name('page.index');
+  Route::get('/sayfalar/olustur','App\Http\Controllers\Back\PageController@create')->name('page.create');
+  Route::get('/sayfalar/guncelle/{id}','App\Http\Controllers\Back\PageController@update')->name('page.edit');
+  Route::post('/sayfalar/guncelle/{id}','App\Http\Controllers\Back\PageController@updatePost')->name('page.edit.post');
+  Route::post('/sayfalar/olustur','App\Http\Controllers\Back\PageController@post')->name('page.create.post');
   Route::get('/sayfa/switch','App\Http\Controllers\Back\PageController@switch')->name('page.switch');
+  Route::get('/sayfa/sil/{id}','App\Http\Controllers\Back\PageController@delete')->name('page.delete');
 
   //
   Route::get('çıkış','App\Http\Controllers\Back\AuthController@logout')->name('logout');
