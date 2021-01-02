@@ -9,6 +9,7 @@ use App\Models\Article;
 use App\Models\Page;
 use App\Models\Contact;
 use Validator;
+use Mail;
 class Homepage extends Controller
 {
     public function __construct(){
@@ -53,12 +54,22 @@ class Homepage extends Controller
       if($validate->fails()){
         return redirect()->route('contact')->withErrors($validate)->withInput();
       }
-      $contact = new Contact;
-      $contact->name=$request->name;
-      $contact->email=$request->email;
-      $contact->topic=$request->topic;
-      $contact->message=$request->message;
-      $contact->save();
+      Mail::send([],[],function($message)use($request){
+        $message->from('iletişim@blogsitesi.com','Blog Sitesi');
+        $message->to('eaa1063@gmail.com');
+        $message->setBody(' Mesajı Gönderen :'.$request->name.' <br/>
+                    Mesajı Gönderen Mail :'.$request->email.'<br/>
+                    Mesaj Konusu :'.$request->topic.'<br/>
+                    Mesaj :'.$request->message.'<br /><br />
+                    Mesaj Gönderilme Tarihi :'.now().'','text/html');
+        $message->subject($request->name. 'iletişimden mesaj gönderdi!');
+      });
+      // $contact = new Contact;
+      // $contact->name=$request->name;
+      // $contact->email=$request->email;
+      // $contact->topic=$request->topic;
+      // $contact->message=$request->message;
+      // $contact->save();
       return redirect()->route('contact')->with('success', 'Mesajınız bize iletildi.Teşekkür ederiz!');
     }
 }
