@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 |
 */
+Route::get('site-bakimda',function(){
+  return view('front.offline');
+});
 Route::prefix('admin')->name('admin.')->middleware('isLogin')->group(function(){
   Route::get('giriş','App\Http\Controllers\Back\AuthController@login')->name('login');
   Route::post('giriş','App\Http\Controllers\Back\AuthController@loginPost')->name('login.post');
@@ -36,6 +39,9 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function(){
   Route::get('/sayfa/switch','App\Http\Controllers\Back\PageController@switch')->name('page.switch');
   Route::get('/sayfa/sil/{id}','App\Http\Controllers\Back\PageController@delete')->name('page.delete');
   Route::get('/sayfa/siralama','App\Http\Controllers\Back\PageController@orders')->name('page.orders');
+  //Config's Route
+  Route::get('/ayarlar','App\Http\Controllers\Back\ConfigController@index')->name('config.index');
+  Route::post('/ayarlar/update','App\Http\Controllers\Back\ConfigController@update')->name('config.update');
   //
   Route::get('çıkış','App\Http\Controllers\Back\AuthController@logout')->name('logout');
 });

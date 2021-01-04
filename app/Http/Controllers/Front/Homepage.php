@@ -8,11 +8,15 @@ use App\Models\Category;
 use App\Models\Article;
 use App\Models\Page;
 use App\Models\Contact;
+use App\Models\Config;
 use Validator;
 use Mail;
 class Homepage extends Controller
 {
     public function __construct(){
+      if(Config::find(1)->active==0){
+        return redirect()->to('site-bakimda')->send();
+      }
       view()->share('pages',Page::orderBy('order','ASC')->get());
       view()->share('categories',Category::inRandomOrder()->get());
     }
