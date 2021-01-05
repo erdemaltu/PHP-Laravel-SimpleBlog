@@ -4,7 +4,7 @@ namespace App\Providers;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
-use App\Models\Config;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,8 +23,7 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-      view()->share('config',Config::find(1));
+    {      
       Paginator::useBootstrap();
       Route::resourceVerbs([
         'create' => 'olustur',
